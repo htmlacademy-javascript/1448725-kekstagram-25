@@ -56,7 +56,6 @@ const DESCRIPTIONS = [
   'Котики',
 ];
 
-const similarPhotos = [];
 const SIMILAR_PHOTOS_COUNT = 25;
 
 const createComment = () => ({
@@ -68,6 +67,7 @@ const createComment = () => ({
 
 
 const createPhoto = () => {
+  const similarPhotos = [];
   for (let j = 1; j <= SIMILAR_PHOTOS_COUNT; j++) {
     const commentsList = [];
     for (let i = 1; i <= getRandomPositiveInteger(1, 4); i++) {
