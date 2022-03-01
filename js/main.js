@@ -59,7 +59,7 @@ const DESCRIPTIONS = [
 const SIMILAR_PHOTOS_COUNT = 25;
 
 const createComment = () => ({
-  id: '1', // случайное число. Идентификаторы не должны повторяться.
+  id: getRandomPositiveInteger(1, 150), // случайное число. Идентификаторы не должны повторяться.
   avatar: `img/avatar-${  getRandomPositiveInteger(1, 6)  }.svg`,
   message: getRandomArrayElement(COMMENTS),
   name: getRandomArrayElement(NAMES),
@@ -84,4 +84,4 @@ const createPhoto = () => {
   return similarPhotos;
 };
 
-createPhoto();
+console.log(createPhoto());
