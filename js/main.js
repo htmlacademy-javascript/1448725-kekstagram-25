@@ -10,12 +10,89 @@ const getRandom = function (num1, num2) {
 getRandom(8, 8);
 
 // Задание 2. Функция для проверки максимальной длины строки.
-const getLengthString = (checkedString, maxLength) => {
-  if (checkedString.length <= maxLength) {
-    return true;
-  }
-  return false;
+const checkLengthString = (checkedString, maxLength) => checkedString.length <= maxLength;
+
+checkLengthString('Функция для проверки максимальной длины строки', 120);
+
+const COMMENTS = [
+  'Всё отлично!',
+  'В целом всё неплохо. Но не всё.',
+  'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
+  'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
+  'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
+  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
+];
+
+const getRandomPositiveInteger = (a, b) => {
+  const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
+  const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
+  const result = Math.random() * (upper - lower + 1) + lower;
+  return Math.floor(result);
 };
 
-getLengthString('Функция для проверки максимальной длины строки', 120);
+const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
 
+const makeId = function() {
+  let id = '';
+  const possibleSymbol = '0123456789';
+
+  for (let i = 0; i < 5; i++) {
+    id += possibleSymbol.charAt(Math.floor(Math.random() * possibleSymbol.length));
+  }
+
+  return id;
+};
+
+const NAMES = [
+  'Паоло',
+  'Душан',
+  'Леонардо',
+  'Джорджо',
+  'Матейс',
+  'Войцех',
+  'Федерико',
+  'Адриан',
+];
+
+const DESCRIPTIONS = [
+  'Красивый закат',
+  'Я держу Пизанскую башню',
+  'Завтрак',
+  'Великолепный замок',
+  'Отпуск в горах',
+  'Велопоход',
+  'Пробежка в лесу',
+  'Морское побережье',
+  'Милые еноты',
+  'Котики',
+];
+
+const SIMILAR_PHOTOS_COUNT = 25;
+
+const createComment = () => ({
+  id: makeId(),
+  avatar: `img/avatar-${  getRandomPositiveInteger(1, 6)  }.svg`,
+  message: getRandomArrayElement(COMMENTS),
+  name: getRandomArrayElement(NAMES),
+});
+
+
+const createPhoto = () => {
+  const similarPhotos = [];
+  for (let j = 1; j <= SIMILAR_PHOTOS_COUNT; j++) {
+    const commentsList = [];
+    for (let i = 1; i <= getRandomPositiveInteger(1, 4); i++) {
+      commentsList.push(createComment());
+    }
+    similarPhotos.push({
+      id: j,
+      url: `photos/${j}.jpg`,
+      description: getRandomArrayElement(DESCRIPTIONS),
+      likes: getRandomPositiveInteger(15, 200),
+      comments: commentsList,
+    });
+  }
+  return similarPhotos;
+};
+
+createPhoto();
