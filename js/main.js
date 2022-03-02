@@ -32,6 +32,17 @@ const getRandomPositiveInteger = (a, b) => {
 
 const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
 
+const makeId = function() {
+  let id = '';
+  const possibleSymbol = '0123456789';
+
+  for (let i = 0; i < 5; i++) {
+    id += possibleSymbol.charAt(Math.floor(Math.random() * possibleSymbol.length));
+  }
+
+  return id;
+};
+
 const NAMES = [
   'Паоло',
   'Душан',
@@ -59,7 +70,7 @@ const DESCRIPTIONS = [
 const SIMILAR_PHOTOS_COUNT = 25;
 
 const createComment = () => ({
-  id: getRandomPositiveInteger(1, 150), // случайное число. Идентификаторы не должны повторяться.
+  id: makeId(),
   avatar: `img/avatar-${  getRandomPositiveInteger(1, 6)  }.svg`,
   message: getRandomArrayElement(COMMENTS),
   name: getRandomArrayElement(NAMES),
@@ -84,4 +95,4 @@ const createPhoto = () => {
   return similarPhotos;
 };
 
-console.log(createPhoto());
+createPhoto();
