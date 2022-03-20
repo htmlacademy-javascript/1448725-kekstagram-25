@@ -3,6 +3,20 @@ const bigPicture = document.querySelector('.big-picture');
 const bigPictureButtonClose = document.querySelector('.big-picture__cancel');
 const body = document.querySelector('body');
 
+const onPopupEscKeydown = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    closeBigPicture();
+  }
+};
+
+function closeBigPicture () {
+  bigPicture.classList.add('hidden');
+  body.classList.remove('modal-open');
+
+  document.removeEventListener('keydown', onPopupEscKeydown);
+}
+
 const showBigPicture = function (userPicture, userPictureUrl, userPictureComments, userPictureLikes, userPictureDescription) {
   userPicture.addEventListener('click', () => {
     bigPicture.classList.remove('hidden');
@@ -24,8 +38,8 @@ const showBigPicture = function (userPicture, userPictureUrl, userPictureComment
       socialPicture.classList.add('social__picture');
       socialPicture.src = userPictureComments[i].avatar;
       socialPicture.alt = userPictureComments[i].name;
-      socialPicture.width = "35";
-      socialPicture.height = "35";
+      socialPicture.width = '35';
+      socialPicture.height = '35';
 
       const socialText = document.createElement('p');
       socialText.classList.add('social__text');
@@ -36,18 +50,11 @@ const showBigPicture = function (userPicture, userPictureUrl, userPictureComment
       socialComments.append(socialComment);
     }
 
-    document.addEventListener('keydown', (evt) => {
-      if (isEscapeKey(evt)) {
-        evt.preventDefault();
-        bigPicture.classList.add('hidden');
-        body.classList.remove('modal-open');
-      }
-    });
+    document.addEventListener('keydown', onPopupEscKeydown);
   });
 
   bigPictureButtonClose.addEventListener('click', () => {
-    bigPicture.classList.add('hidden');
-    body.classList.remove('modal-open');
+    closeBigPicture();
   });
 };
 
