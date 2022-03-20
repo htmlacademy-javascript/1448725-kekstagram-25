@@ -23,4 +23,6 @@ const makeId = function() {
   return id;
 };
 
-export {getRandomArrayElement, makeId, getRandomPositiveInteger};
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export {getRandomArrayElement, makeId, getRandomPositiveInteger, isEscapeKey};
