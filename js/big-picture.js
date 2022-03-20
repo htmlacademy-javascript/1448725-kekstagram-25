@@ -13,6 +13,29 @@ const showBigPicture = function (userPicture, userPictureUrl, userPictureComment
     bigPicture.querySelector('.comments-loader').classList.add('hidden');
     body.classList.add('modal-open');
 
+    //comments
+    const socialComments = bigPicture.querySelector('.social__comments');
+    socialComments.innerHTML = '';
+    for (let i=0; i < userPictureComments.length; i++) {
+      const socialComment = document.createElement('li');
+      socialComment.classList.add('social__comment');
+
+      const socialPicture = document.createElement('img');
+      socialPicture.classList.add('social__picture');
+      socialPicture.src = userPictureComments[i].avatar;
+      socialPicture.alt = userPictureComments[i].name;
+      socialPicture.width = "35";
+      socialPicture.height = "35";
+
+      const socialText = document.createElement('p');
+      socialText.classList.add('social__text');
+      socialText.textContent = userPictureComments[i].message;
+
+      socialComment.append(socialPicture);
+      socialComment.append(socialText);
+      socialComments.append(socialComment);
+    }
+
     document.addEventListener('keydown', (evt) => {
       if (isEscapeKey(evt)) {
         evt.preventDefault();
